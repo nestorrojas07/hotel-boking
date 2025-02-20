@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Ports.Repositories.Auth;
 using Infraestructure.Contexts;
+using Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +34,7 @@ public static class DependencyInyection
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        //services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUserAppRepository, UserAppRepository>();
 
         return services;
     }

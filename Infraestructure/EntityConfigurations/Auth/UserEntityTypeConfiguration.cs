@@ -37,11 +37,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<UserApp>
         builder.Property(p => p.Role)
             .HasColumnName("role")
             .IsRequired()
-            .HasConversion(
-                      v => v.ToString(), 
-                      v => (AppRole)Enum.Parse(typeof(AppRole), v)
-                  )
-                  .HasColumnType("varchar(50)");
+            .HasColumnType("varchar(50)");
 
         builder.Property(p => p.IsActive)
             .HasColumnName("is_active")
