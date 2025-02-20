@@ -30,6 +30,7 @@ public class JwtTokenGenerator : ITokenGenerator
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Role),
             new Claim(ClaimTypes.Name, user.FullName),
+            new Claim("userId", $"{user.Id}"),
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.Secret));

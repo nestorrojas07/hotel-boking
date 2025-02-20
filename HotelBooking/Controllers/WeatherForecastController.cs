@@ -1,3 +1,4 @@
+using HotelBooking.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace HotelBooking.Controllers
         [Authorize(Roles ="Admin")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var user = HttpContext.User.CurrentUser();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
