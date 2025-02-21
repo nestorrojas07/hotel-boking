@@ -13,4 +13,5 @@ public class CreateRoomRequest
     public bool IsActive { get; set; }
     public float PriceBase { get; set; }
     public float TaxPercentaje { get; set; }
+    public int GuestNumber { get; set; }
 }

@@ -44,6 +44,8 @@ public class RoomServices
             Description = request.Description,
             IsActive = request.IsActive,
             PriceBase = request.PriceBase,
+            CityId = hotel.CityId,
+            GuestNumber = request.GuestNumber,
             TaxPercentaje = request.TaxPercentaje,
             Name = request.Name,
             CreatedBy = user.Id,
