@@ -11,6 +11,7 @@ namespace Domain.Ports.Repositories.Hotels;
 public interface IRoomRepository
 {
     public Task<Room?> GetRoomById(long id);
+    public Task<Room?> GetRoomByNameIntoHotel(long id, string name);
     public Task<List<Room>> GetRoomsByHotel(long hotelId);
 
     public Task<Room> Create(Room room);

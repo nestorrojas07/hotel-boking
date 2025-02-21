@@ -19,7 +19,6 @@ public static class HotelSeed
             var city = bookingContext.Cities.FirstOrDefault();
             var hotel = new Hotel
             {
-                Id = 1,
                 Description = """
                     At Santa Marta Smart Resort Playa Dormida, you will discover the perfect 
                     blend of high-tech and high-touch amenities. Our Santa Marta, Colombia hotel

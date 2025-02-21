@@ -13,10 +13,11 @@ public class RoomServices
     private readonly IHotelRepository _hotelRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RoomServices(IRoomRepository roomRepository, IHotelRepository hotelRepository)
+    public RoomServices(IRoomRepository roomRepository, IHotelRepository hotelRepository, IHttpContextAccessor httpContextAccessor)
     {
         _roomRepository = roomRepository;
         _hotelRepository = hotelRepository;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<Room?> GetRoomById(long id)
@@ -35,6 +36,8 @@ public class RoomServices
         
         if(hotel == null) throw new KeyNotFoundException($"Hotel {hotelId} not found");
         if (!hotel.IsActive) throw new DomainException("Hotel is not active"); 
+        var checkRoom = await _roomRepository.GetRoomByNameIntoHotel(hotelId, request.Name);
+        if(checkRoom != null) throw new DomainException($"Room {hotelId} already exists");
         
         var user = _httpContextAccessor.HttpContext.User.CurrentUser();
 
