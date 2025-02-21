@@ -33,9 +33,11 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var autopt = services.GetRequiredService<IOptions<AuthOption>>();
     
-    var context = services.GetRequiredService<AuthContext>();
+    var context = services.GetRequiredService<BookingContext>();
     context.Database.Migrate();
+
     context.SeedUsers(services, autopt.Value.PasswordSalt);
+    context.SeedHotel();
 }
 
 

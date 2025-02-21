@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models.Auth;
+using Domain.Models.HotelModels;
 using Infraestructure.EntityConfigurations.Auth;
+using Infraestructure.EntityConfigurations.Hotels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Contexts;
 
-public class AuthContext : DbContext
+public class BookingContext : DbContext
 {
 
     public DbSet<UserApp> Users { get; set; }
-    public AuthContext(DbContextOptions options) : base(options)
+
+    public DbSet<Hotel> Hotels { get; set; }
+    public DbSet<Room> Rooms { get; set; }
+    public BookingContext(DbContextOptions options) : base(options)
     {
     }
 
@@ -28,6 +33,11 @@ public class AuthContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         modelBuilder.Entity<UserApp>();
+
+        modelBuilder.ApplyConfiguration(new HotelEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new RoomEntityTypeConfiguration());
+        modelBuilder.Entity<Hotel>();
+        modelBuilder.Entity<Room>();
     }
 
 }

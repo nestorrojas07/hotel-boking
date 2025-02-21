@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infraestructure.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(BookingContext))]
     [Migration("20250218211000_InitialMigration")]
     partial class InitialMigration
     {

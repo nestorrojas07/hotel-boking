@@ -13,7 +13,7 @@ namespace Infraestructure.Seeds;
 
 public static class AuthSeed
 {
-    public static void SeedUsers(this AuthContext authContext, IServiceProvider sp, string passwordSalt= "") {
+    public static void SeedUsers(this BookingContext authContext, IServiceProvider sp, string passwordSalt= "") {
         if (!authContext.Users.Any())
         {
             authContext.AddRange(

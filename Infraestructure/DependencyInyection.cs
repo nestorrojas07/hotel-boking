@@ -25,7 +25,8 @@ public static class DependencyInyection
 
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AuthContext>(options => {
+        services.AddDbContext<BookingContext>(options =>
+        {
             options.UseNpgsql(configuration.GetConnectionString("AuthDb"));
         });
 
