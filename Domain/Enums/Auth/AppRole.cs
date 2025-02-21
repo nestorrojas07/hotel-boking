@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums.Auth;
 
-public enum AppRole
+public static class AppRole
 {
-    None,
-    Admin,
-    Customer
+    public const string Guest = "Guest";
+    public const string Admin = "Admin";
+    public const string Customer = "Customer";
 }
