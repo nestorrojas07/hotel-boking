@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models.HotelModels;
+using Domain.Models.Location;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.EntityConfigurations.Hotels;
@@ -51,6 +52,11 @@ public class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
         builder.HasMany<Room>( hotel => hotel.Rooms)
             .WithOne( x => x.Hotel )
             .HasForeignKey(x => x.HotelId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasOne<City>(hotel => hotel.City)
+            .WithMany()
+            .HasForeignKey(h => h.CityId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
