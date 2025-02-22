@@ -39,8 +39,27 @@ git clone https://github.com/nestorrojas07/hotel-boking.git
 cd hotel-boking
 docker-compose up --build
 ```
+
 Endpoints:
 - Booking swagger: [Products swagger](http://localhost:8090/swagger/index.html)
+
+## Login
+- Admin
+```json
+{
+"email": "admin@smarttalent.com",
+"password": "Password"
+}
+```
+- Customer
+```json
+{
+"email": "nestor@mail.com",
+"password": "Password"
+}
+```
+
+
 
 ## Local Test
 
