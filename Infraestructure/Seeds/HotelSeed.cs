@@ -16,9 +16,9 @@ public static class HotelSeed
     {
         if (!bookingContext.Hotels.Any())
         {
+            var city = bookingContext.Cities.FirstOrDefault();
             var hotel = new Hotel
             {
-                Id = 1,
                 Description = """
                     At Santa Marta Smart Resort Playa Dormida, you will discover the perfect 
                     blend of high-tech and high-touch amenities. Our Santa Marta, Colombia hotel
@@ -27,6 +27,7 @@ public static class HotelSeed
                 IsActive = true,
                 Name = "Smart Resort",
                 Starts = 5,
+                CityId = city.Id,
                 CreatedBy = 1,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -36,12 +37,15 @@ public static class HotelSeed
             bookingContext.SaveChanges();
             List<Room> rooms = new List<Room>();
             for (int i = 1; i < 50; i++) {
-                rooms.Add(new Room { 
-                    Hotel = hotel,
+                rooms.Add(new Room {
+                    HotelId = hotel.Id,
                     IsActive = true,
                     Name = $"{(int)(i/6) + 1}{i%6}",
                     PriceBase = 30f + i,
                     TaxPercentaje = 0.15f,
+                    City = city,
+                    CityId = city.Id,
+                    GuestNumber = i%4 +1,
                     CreatedBy = 1,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,

@@ -5,8 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models.Auth;
 using Domain.Models.HotelModels;
+using Domain.Models.Location;
+using Domain.Models.Reservation;
 using Infraestructure.EntityConfigurations.Auth;
 using Infraestructure.EntityConfigurations.Hotels;
+using Infraestructure.EntityConfigurations.Location;
+using Infraestructure.EntityConfigurations.Reservation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Contexts;
@@ -16,8 +20,11 @@ public class BookingContext : DbContext
 
     public DbSet<UserApp> Users { get; set; }
 
+    public DbSet<City> Cities { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Room> Rooms { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Guest> Guests { get; set; }
     public BookingContext(DbContextOptions options) : base(options)
     {
     }
@@ -34,10 +41,16 @@ public class BookingContext : DbContext
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         modelBuilder.Entity<UserApp>();
 
+        modelBuilder.ApplyConfiguration(new CityEntityTypeConfiguration());
+        modelBuilder.Entity<City>();
         modelBuilder.ApplyConfiguration(new HotelEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RoomEntityTypeConfiguration());
         modelBuilder.Entity<Hotel>();
+        modelBuilder.ApplyConfiguration(new RoomEntityTypeConfiguration());
         modelBuilder.Entity<Room>();
+        modelBuilder.ApplyConfiguration(new BookingEntityTypeConfiguration());
+        modelBuilder.Entity<Booking>();
+        modelBuilder.ApplyConfiguration(new GuestEntityTypeConfiguration());
+        modelBuilder.Entity<Guest>();
     }
 
 }

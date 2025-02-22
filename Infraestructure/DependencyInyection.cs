@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Ports.Repositories.Auth;
+using Domain.Ports.Repositories.Bookings;
 using Domain.Ports.Repositories.Hotels;
+using Domain.Ports.Repositories.Locations;
 using Infraestructure.Contexts;
 using Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +41,8 @@ public static class DependencyInyection
         services.AddScoped<IUserAppRepository, UserAppRepository>();
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
 
         return services;
     }

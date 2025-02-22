@@ -33,6 +33,11 @@ public class RoomRepository : IRoomRepository
         return await _bookingContext.Rooms.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<Room?> GetRoomByNameIntoHotel(long hotelId, string name)
+    {
+        return await _bookingContext.Rooms.FirstOrDefaultAsync(r => r.HotelId == hotelId && r.Name == name);
+    }
+
     public async Task<List<Room>> GetRoomsByHotel(long hotelId)
     {
         return await _bookingContext.Rooms.Where(x => x.HotelId == hotelId).ToListAsync();

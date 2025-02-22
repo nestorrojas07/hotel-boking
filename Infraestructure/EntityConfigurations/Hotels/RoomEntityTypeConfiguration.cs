@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Domain.Models.HotelModels;
+using Domain.Models.Location;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,6 +22,10 @@ public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Room>
         builder.Property(p => p.HotelId)
             .HasColumnName("hotel_id")
             .IsRequired();
+        
+        builder.Property(p => p.CityId)
+            .HasColumnName("city_id")
+            .IsRequired();
 
         builder.Property(p => p.Name)
             .HasColumnName("name")
@@ -29,6 +34,11 @@ public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Room>
 
         builder.HasIndex(p => new { p.HotelId, p.Name })
              .IsUnique();
+        
+        builder.Property(p => p.GuestNumber)
+            .HasColumnName("guest_number")
+            .IsRequired()
+            .HasDefaultValue(1);
 
         builder.Property(p => p.Description)
             .HasColumnName("description")
@@ -60,9 +70,14 @@ public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Room>
             .HasColumnName("updated_at")
             .IsRequired();
 
-        builder.HasOne<Hotel>(room => room.Hotel)
-            .WithMany(x => x.Rooms)
+        builder.HasOne<Hotel>()
+            .WithMany()
             .HasForeignKey(x => x.HotelId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasOne<City>(room => room.City)
+            .WithMany()
+            .HasForeignKey(x => x.CityId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 

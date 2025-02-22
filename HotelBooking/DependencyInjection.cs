@@ -7,6 +7,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
+using Services.Bookings;
 using Services.Hotels;
 
 namespace HotelBooking;
@@ -16,7 +18,10 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
     {
 
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });;
         services.AddEndpointsApiExplorer();
         services.AddHttpContextAccessor();
 
@@ -66,6 +71,8 @@ public static class DependencyInjection
         services.AddScoped<LoginService>();
         services.AddScoped<HotelServices>();
         services.AddScoped<RoomServices>();
+        services.AddScoped<BookingService>();
+        
 
         return services;
 

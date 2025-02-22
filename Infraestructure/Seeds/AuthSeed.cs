@@ -27,7 +27,6 @@ public static class AuthSeed
                     Role = nameof(Domain.Enums.Auth.AppRole.Admin),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-
                 },
                 new UserApp
                 {
@@ -39,7 +38,6 @@ public static class AuthSeed
                     Role = nameof(Domain.Enums.Auth.AppRole.Customer),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-
                 }
             );
             authContext.SaveChanges();

@@ -40,6 +40,7 @@ public class HotelServices
             Name = request.Name,
             Description = request.Description,
             Starts = request.Starts,
+            CityId = request.CityId,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             CreatedBy = user.Id,

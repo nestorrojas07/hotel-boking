@@ -10,6 +10,7 @@ public class CreateHotelRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }
+    public long CityId { get; set; }
     public int Starts { get; set; }
 
     public bool IsActive { get; set; }

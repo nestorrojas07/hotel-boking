@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models.HotelModels;
+using Domain.Models.Location;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.EntityConfigurations.Hotels;
@@ -30,6 +31,9 @@ public class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
             .HasColumnName("starts")
             .IsRequired();
         
+        builder.Property(p => p.CityId)
+            .HasColumnName("city_id")
+            .IsRequired();
 
         builder.Property(p => p.IsActive)
             .HasColumnName("is_active")
@@ -48,9 +52,14 @@ public class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
             .HasColumnName("updated_at")
             .IsRequired();
 
-        builder.HasMany<Room>( hotel => hotel.Rooms)
-            .WithOne( x => x.Hotel )
+        builder.HasMany<Room>()
+            .WithOne()
             .HasForeignKey(x => x.HotelId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasOne<City>()
+            .WithMany()
+            .HasForeignKey(h => h.CityId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

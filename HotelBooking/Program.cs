@@ -35,9 +35,11 @@ using (var scope = app.Services.CreateScope())
     
     var context = services.GetRequiredService<BookingContext>();
     context.Database.Migrate();
-
+    
+    context.SeedCities();
     context.SeedUsers(services, autopt.Value.PasswordSalt);
     context.SeedHotel();
+    
 }
 
 
