@@ -70,7 +70,7 @@ public class BookingRepository : IBookingRepository
                   	select 1 from rooms r
                   	where r.is_active = true
                   	and r.city_id = @pCityId
-                  	and r.guest_number > 0 and r.guest_number <= @pNumberOfGuests
+                  	and r.guest_number > 0 and r.guest_number >= @pNumberOfGuests
                   	and r.hotel_id = h."Id" 
                   	and not exists (
                   		select * from booking b 
@@ -97,7 +97,7 @@ public class BookingRepository : IBookingRepository
         var sql = """
                   select r.* from rooms r
                   where r.hotel_id= @pHotelId and r.is_active = true
-                  and r.guest_number > 0 and r.guest_number <= @pNumberOfGuests
+                  and r.guest_number > 0 and r.guest_number >= @pNumberOfGuests
                   and r.city_id = @pCityId
                   and not exists (
                   	select 1 from booking b 

@@ -30,7 +30,7 @@ public class BookingService
     {
         var user = _httpContextAccessor.HttpContext.User.CurrentUser();
         booking.CreatedBy = user.Id;
-        booking.Code = Guid.NewGuid().ToString("N")[..-10];
+        booking.Code = Guid.NewGuid().ToString("N")[18..];
         booking.CreatedAt = DateTime.UtcNow;
         booking.UpdatedAt = DateTime.UtcNow;
         return await _bookingRepository.Create(booking);
@@ -38,16 +38,32 @@ public class BookingService
 
     public async Task<Booking> GetById(long id)
     {
-        return await _bookingRepository.GetById(id);
+        Booking book = await _bookingRepository.GetById(id);
+        if (book == null)
+            throw new KeyNotFoundException($"No booking found with id {id}");
+        return book;
     }
 
     public async Task<Booking> GetByCode(string code)
     {
-        return await _bookingRepository.GetByCode(code);
+        Booking book = await _bookingRepository.GetByCode(code);
+        if (book == null)
+            throw new KeyNotFoundException($"No booking found with code {code}");
+        return book;
     }
 
     public async Task AddGuests(long bookingId, IEnumerable<Guest> guests)
     {
+        var user = _httpContextAccessor.HttpContext.User.CurrentUser();
+        
+        guests = guests.Select(m =>
+        {
+            m.CreatedBy = user.Id;
+            m.BookingId = bookingId;
+            m.UpdatedAt = DateTime.UtcNow;
+            m.CreatedAt = DateTime.UtcNow;
+            return m;
+        });
         await _bookingRepository.AddGuests(bookingId, guests);
     }
 
@@ -77,8 +93,8 @@ public class BookingService
     {
         var city = await _cityRepository.GetByAbbreviation(cityCode);
         if (city == null) throw new DomainException("Invalid city");
-        DateTime startAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkoutAt + TimeSpan.FromMinutes(1)));
-        DateTime endAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkintAt -  TimeSpan.FromMinutes(1)));
+        DateTime startAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkoutAt + TimeSpan.FromMinutes(1)), DateTimeKind.Utc);
+        DateTime endAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkintAt -  TimeSpan.FromMinutes(1)), DateTimeKind.Utc);
         
         return await _bookingRepository.GetHotels(startAt, endAt, numberOfGuests, city.Id);
     }
@@ -88,8 +104,8 @@ public class BookingService
         var city = await _cityRepository.GetByAbbreviation(cityCode);
         if (city == null) throw new DomainException("Invalid city");
         
-        DateTime startAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkoutAt + TimeSpan.FromMinutes(1)));
-        DateTime endAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkintAt -  TimeSpan.FromMinutes(1)));
+        DateTime startAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkoutAt + TimeSpan.FromMinutes(1)), DateTimeKind.Utc);
+        DateTime endAt = startDate.ToDateTime(TimeOnly.FromTimeSpan(checkintAt -  TimeSpan.FromMinutes(1)), DateTimeKind.Utc);
         
         return await _bookingRepository.GetRooms(hotelId, startAt, endAt, numberOfGuests, city.Id);
     }

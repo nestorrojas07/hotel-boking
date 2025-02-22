@@ -21,8 +21,8 @@ public class CreateBookingRequest
         return new Booking()
         {
             HotelId = bookingRequest.HotelId,
-            StartAt = bookingRequest.StartAt.ToDateTime(TimeOnly.FromTimeSpan(TimeSpan.Parse("14:00:00.000"))),
-            EndAt = bookingRequest.EndAt.ToDateTime(TimeOnly.FromTimeSpan(TimeSpan.Parse("10:59:59.999"))),
+            StartAt = bookingRequest.StartAt.ToDateTime(TimeOnly.FromTimeSpan(TimeSpan.Parse("14:00:00.000")), DateTimeKind.Utc),
+            EndAt = bookingRequest.EndAt.ToDateTime(TimeOnly.FromTimeSpan(TimeSpan.Parse("10:59:59.999")), DateTimeKind.Utc),
             CityId = bookingRequest.CityId,
             GuestNumber = bookingRequest.GuestNumber,
             RoomId = bookingRequest.RoomId,
