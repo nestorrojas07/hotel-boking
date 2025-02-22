@@ -13,7 +13,7 @@ namespace Infraestructure.Seeds;
 
 public static class AuthSeed
 {
-    public static void SeedUsers(this AuthContext authContext, IServiceProvider sp, string passwordSalt= "") {
+    public static void SeedUsers(this BookingContext authContext, IServiceProvider sp, string passwordSalt= "") {
         if (!authContext.Users.Any())
         {
             authContext.AddRange(
@@ -27,7 +27,6 @@ public static class AuthSeed
                     Role = nameof(Domain.Enums.Auth.AppRole.Admin),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-
                 },
                 new UserApp
                 {
@@ -39,7 +38,6 @@ public static class AuthSeed
                     Role = nameof(Domain.Enums.Auth.AppRole.Customer),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-
                 }
             );
             authContext.SaveChanges();

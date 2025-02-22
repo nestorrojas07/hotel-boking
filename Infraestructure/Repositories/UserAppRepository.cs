@@ -12,9 +12,9 @@ namespace Infraestructure.Repositories;
 
 public class UserAppRepository: IUserAppRepository
 {
-    private readonly AuthContext _authContext;
+    private readonly BookingContext _authContext;
 
-    public UserAppRepository(AuthContext authContext)
+    public UserAppRepository(BookingContext authContext)
     {
         _authContext = authContext;
     }

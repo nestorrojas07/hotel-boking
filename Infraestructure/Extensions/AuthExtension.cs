@@ -1,8 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Domain.Dtos;
 
-namespace HotelBooking.Extensions;
+namespace Infraestructure.Extensions;
 
 public static class AuthExtension
 {

@@ -1,4 +1,4 @@
-using HotelBooking.Extensions;
+using Infraestructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

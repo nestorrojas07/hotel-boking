@@ -1,0 +1,32 @@
+﻿version: "3.8"
+
+services:
+  bookingdb:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_DB=principal
+    ports:
+      - "5435:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+  bookingapi:
+    build:
+      context: .
+      dockerfile: HotelBooking/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: 8090
+      ConnectionStrings:AuthDb: Server=bookingdb;Port=5432;User Id=postgres;Password=S3cret;Database=principal;
+    ports:
+      - "8090:8090"
+    depends_on:
+      - bookingdb
+
+
+volumes:
+  db: 

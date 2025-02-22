@@ -16,7 +16,13 @@ public class LoginController : ControllerBase
         _loginService = loginService;
     }
 
+    /// <summary>
+    /// Generate Jwt Token via user and password
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost()]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataResponse<string>))]
     public async Task<ActionResult<DataResponse<string>>> Login([FromBody] LoginRequest request) {
         string token = await _loginService.Login(request.Email, request.Password);
         

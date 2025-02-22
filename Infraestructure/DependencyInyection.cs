@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Ports.Repositories.Auth;
+using Domain.Ports.Repositories.Bookings;
+using Domain.Ports.Repositories.Hotels;
+using Domain.Ports.Repositories.Locations;
 using Infraestructure.Contexts;
 using Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +28,8 @@ public static class DependencyInyection
 
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AuthContext>(options => {
+        services.AddDbContext<BookingContext>(options =>
+        {
             options.UseNpgsql(configuration.GetConnectionString("AuthDb"));
         });
 
@@ -35,6 +39,10 @@ public static class DependencyInyection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserAppRepository, UserAppRepository>();
+        services.AddScoped<IHotelRepository, HotelRepository>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
 
         return services;
     }

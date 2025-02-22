@@ -9,6 +9,8 @@ using HotelBooking.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
+
 // Add services to the container.
 builder.Services.AddPresentation(builder.Configuration)
     .AddInfraestructure(builder.Configuration)
@@ -33,9 +35,13 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var autopt = services.GetRequiredService<IOptions<AuthOption>>();
     
-    var context = services.GetRequiredService<AuthContext>();
+    var context = services.GetRequiredService<BookingContext>();
     context.Database.Migrate();
+    
+    context.SeedCities();
     context.SeedUsers(services, autopt.Value.PasswordSalt);
+    context.SeedHotel();
+    
 }
 
 
