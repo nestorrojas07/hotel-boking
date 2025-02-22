@@ -3,9 +3,7 @@ using Domain.Models.HotelModels;
 using Domain.Models.Reservation;
 using Domain.Ports.Repositories.Bookings;
 using Domain.Ports.Repositories.Locations;
-using Infraestructure.Contexts;
 using Infraestructure.Extensions;
-using Infraestructure.Repositories;
 using Microsoft.AspNetCore.Http;
 
 namespace Services.Bookings;
