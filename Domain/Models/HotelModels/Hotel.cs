@@ -14,13 +14,8 @@ public class Hotel
     public string Description { get; set; }
     public int Starts { get; set; }
     public long CityId { get; set; }
-    public virtual City City { get; set; }
-
     public bool IsActive { get; set; }
-
     public long CreatedBy{ get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-
-    public virtual List<Room> Rooms { get; set; }
 }

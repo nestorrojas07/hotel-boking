@@ -27,7 +27,6 @@ public static class HotelSeed
                 IsActive = true,
                 Name = "Smart Resort",
                 Starts = 5,
-                City = city,
                 CityId = city.Id,
                 CreatedBy = 1,
                 CreatedAt = DateTime.UtcNow,
@@ -38,8 +37,8 @@ public static class HotelSeed
             bookingContext.SaveChanges();
             List<Room> rooms = new List<Room>();
             for (int i = 1; i < 50; i++) {
-                rooms.Add(new Room { 
-                    Hotel = hotel,
+                rooms.Add(new Room {
+                    HotelId = hotel.Id,
                     IsActive = true,
                     Name = $"{(int)(i/6) + 1}{i%6}",
                     PriceBase = 30f + i,

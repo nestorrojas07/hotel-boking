@@ -11,7 +11,6 @@ public class Room
 {
     public long Id { get; set; }
     public long HotelId { get; set; }
-    public Hotel Hotel { get; set; }
     public long CityId { get; set; }
     public virtual City City { get; set; }
     public string Name { get; set; }

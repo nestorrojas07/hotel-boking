@@ -22,6 +22,10 @@ public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Room>
         builder.Property(p => p.HotelId)
             .HasColumnName("hotel_id")
             .IsRequired();
+        
+        builder.Property(p => p.CityId)
+            .HasColumnName("city_id")
+            .IsRequired();
 
         builder.Property(p => p.Name)
             .HasColumnName("name")
@@ -66,8 +70,8 @@ public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Room>
             .HasColumnName("updated_at")
             .IsRequired();
 
-        builder.HasOne<Hotel>(room => room.Hotel)
-            .WithMany(x => x.Rooms)
+        builder.HasOne<Hotel>()
+            .WithMany()
             .HasForeignKey(x => x.HotelId)
             .OnDelete(DeleteBehavior.Restrict);
         

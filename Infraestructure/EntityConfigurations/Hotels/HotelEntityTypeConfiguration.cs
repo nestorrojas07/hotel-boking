@@ -31,6 +31,9 @@ public class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
             .HasColumnName("starts")
             .IsRequired();
         
+        builder.Property(p => p.CityId)
+            .HasColumnName("city_id")
+            .IsRequired();
 
         builder.Property(p => p.IsActive)
             .HasColumnName("is_active")
@@ -49,12 +52,12 @@ public class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
             .HasColumnName("updated_at")
             .IsRequired();
 
-        builder.HasMany<Room>( hotel => hotel.Rooms)
-            .WithOne( x => x.Hotel )
+        builder.HasMany<Room>()
+            .WithOne()
             .HasForeignKey(x => x.HotelId)
             .OnDelete(DeleteBehavior.Restrict);
         
-        builder.HasOne<City>(hotel => hotel.City)
+        builder.HasOne<City>()
             .WithMany()
             .HasForeignKey(h => h.CityId)
             .OnDelete(DeleteBehavior.Restrict);
