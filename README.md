@@ -41,7 +41,7 @@ docker-compose up --build
 ```
 
 Endpoints:
-- Booking swagger: [Products swagger](http://localhost:8090/swagger/index.html)
+- Booking swagger: [swagger](http://localhost:8090/swagger/index.html)
 
 ## Login
 - Admin
@@ -69,6 +69,11 @@ Endpoints:
 
 - You need sdk net 8.0
 - Visual Studio
+
+## web remote
+You need contact me to start up services
+[swagger](https://nestorroja.pagekite.me/swagger/index.html)
+
 
 ## Architecture
 

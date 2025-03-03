@@ -10,6 +10,10 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Services.Bookings;
 using Services.Hotels;
+using FluentValidation;
+using HotelBooking.Requests.Bookings;
+using HotelBooking.Validators;
+using Domain.Dtos.Hotels;
 
 namespace HotelBooking;
 
@@ -50,6 +54,7 @@ public static class DependencyInjection
                         configuration.GetSection("Jwt:Secret").Value!))
             };
         });
+        services.AddValidators();
 
         return services;
     }
@@ -72,9 +77,22 @@ public static class DependencyInjection
         services.AddScoped<HotelServices>();
         services.AddScoped<RoomServices>();
         services.AddScoped<BookingService>();
-        
+
 
         return services;
 
+    }
+
+    public static IServiceCollection AddValidators(this IServiceCollection services)
+    {
+        services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
+        services.AddScoped<IValidator<CreateHotelRequest>, CreateHotelRequestValidator>();
+        services.AddScoped<IValidator<CreateRoomRequest>, CreateRoomRequestValidator>();
+        services.AddScoped<IValidator<UpdateHotelRequest>, UpdateHotelRequestValidator>();
+        services.AddScoped<IValidator<UpdateRoomRequest>, UpdateRoomRequestValidator>();
+
+        services.AddScoped(typeof(FluentValidatorFilterAsync<>));
+
+        return services;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain.Dtos.Hotels;
 using Domain.Enums.Auth;
 using Domain.Models.HotelModels;
+using HotelBooking.Middlewares;
 using HotelBooking.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ public class HotelController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Authorize(Roles = $"{AppRole.Admin}")]
+    [ServiceFilter(typeof(FluentValidatorFilterAsync<CreateHotelRequest>))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Hotel>> CreateHotel([FromBody] CreateHotelRequest request)
@@ -69,6 +71,7 @@ public class HotelController : ControllerBase
     /// <returns></returns>
     [HttpPut("{hotelId:long}")]
     [Authorize(Roles = $"{AppRole.Admin}")]
+    [ServiceFilter( typeof(FluentValidatorFilterAsync<UpdateHotelRequest>))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Hotel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
