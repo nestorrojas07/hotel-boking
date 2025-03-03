@@ -2,6 +2,8 @@
 using Domain.Enums.Auth;
 using Domain.Models.HotelModels;
 using Domain.Ports.Repositories.Hotels;
+using HotelBooking.Middlewares;
+using HotelBooking.Requests.Bookings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Hotels;
@@ -30,6 +32,7 @@ public class RoomController : ControllerBase
     /// <returns></returns>
     [HttpPost("hotel/{hotelId:long}/add-room")]
     [Authorize(Roles = $"{AppRole.Admin}")]
+    [ServiceFilter(typeof(FluentValidatorFilterAsync<CreateRoomRequest>))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Room>> AddRoom([FromRoute] long hotelId,  [FromBody] CreateRoomRequest request)
@@ -57,6 +60,7 @@ public class RoomController : ControllerBase
     /// <returns></returns>
     [HttpPut("{roomId:long}")]
     [Authorize(Roles = $"{AppRole.Admin}")]
+    [ServiceFilter(typeof(FluentValidatorFilterAsync<UpdateRoomRequest>))]
     public async Task<ActionResult<Hotel>> UpdateRoom([FromRoute] long roomId, [FromBody] UpdateRoomRequest request)
     {
         return Ok(await _roomServices.Update(roomId, request));

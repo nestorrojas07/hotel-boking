@@ -4,6 +4,7 @@ using Domain.Enums.Bookings;
 using Domain.Exceptions;
 using Domain.Models.HotelModels;
 using Domain.Models.Reservation;
+using HotelBooking.Middlewares;
 using HotelBooking.Requests.Bookings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -85,6 +86,7 @@ public class BookingController : ControllerBase
     /// <exception cref="DomainException"></exception>
     [HttpPost("register-reservation")]
     [Authorize(Roles = $"{AppRole.Admin},{AppRole.Customer}")]
+    [ServiceFilter(typeof(FluentValidatorFilterAsync<CreateBookingRequest>))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Booking>> Register([FromBody] CreateBookingRequest request)
