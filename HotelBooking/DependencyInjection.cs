@@ -8,12 +8,14 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Domain.Dtos.Citites;
 using Services.Bookings;
 using Services.Hotels;
 using FluentValidation;
 using HotelBooking.Requests.Bookings;
 using HotelBooking.Validators;
 using Domain.Dtos.Hotels;
+using Services.Cities;
 
 namespace HotelBooking;
 
@@ -77,6 +79,7 @@ public static class DependencyInjection
         services.AddScoped<HotelServices>();
         services.AddScoped<RoomServices>();
         services.AddScoped<BookingService>();
+        services.AddScoped<CityService>();
 
 
         return services;
@@ -85,6 +88,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
+        services.AddScoped<IValidator<CityCreateRequest>, CityCreateRequestValidator>();
         services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
         services.AddScoped<IValidator<CreateHotelRequest>, CreateHotelRequestValidator>();
         services.AddScoped<IValidator<CreateRoomRequest>, CreateRoomRequestValidator>();
